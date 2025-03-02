@@ -72,7 +72,8 @@ def approx_shape(data, fp_threshold=0.5, epsilon_b=0.005, rel_threshold=0.5, ret
     
     if(len(data_cnt)>0):    
         # Find the the largest connected component and its bounding box
-        data_cnt.sort(key=lambda x: cv2.contourArea(x), reverse=True)
+        # data_cnt.sort(key=lambda x: cv2.contourArea(x), reverse=True)
+        data_cnt = sorted(data_cnt, key=lambda x: cv2.contourArea(x), reverse=True)
         
         area0 = cv2.contourArea(data_cnt[0])
 

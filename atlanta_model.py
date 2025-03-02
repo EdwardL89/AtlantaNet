@@ -8,10 +8,12 @@ import functools
 
 
 class Resnet(nn.Module):
-    def __init__(self, backbone='resnet50', pretrained=True):
+    # def __init__(self, backbone='resnet50', pretrained=True):
+    def __init__(self, backbone='resnet50', weights='ResNet50_Weights.DEFAULT'):
         super(Resnet, self).__init__()
         ##assert backbone in ENCODER_RESNET
-        self.encoder = getattr(models, backbone)(pretrained=pretrained)
+        # self.encoder = getattr(models, backbone)(pretrained=pretrained)
+        self.encoder = getattr(models, backbone)(weights='ResNet50_Weights.DEFAULT')
         del self.encoder.fc, self.encoder.avgpool
 
     def forward(self, x):
@@ -119,7 +121,8 @@ class AtlantaNet(nn.Module):
         self.out_size = 32  
         self.up_mode = 'nearest'
                
-        self.feature_extractor = Resnet(backbone, pretrained=True)                
+        # self.feature_extractor = Resnet(backbone, pretrained=True)
+        self.feature_extractor = Resnet(backbone)                
                                       
         ###merge features at different level of detail -  feature_count to reduce_wh_module init  
         self.reduce_wh_module = MergeE2PFeatures2Seq(out_fets = self.feature_count)
@@ -218,7 +221,7 @@ def wrap_lr_pad(net):
 if __name__ == '__main__':
     print('testing 2D map AtlantaNet')
 
-    device = torch.device('cuda')
+    device = torch.device('cpu')
 
     net = AtlantaNet('resnet50', use_gpu = True).to(device)
 

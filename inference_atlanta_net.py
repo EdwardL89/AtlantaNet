@@ -14,7 +14,7 @@ from atlanta_model import AtlantaNet
 from misc import tools, atlanta_transform, A2P, layout_viewer
 
 ###only for debug
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import cv2
 
 #####dafault values
@@ -119,7 +119,8 @@ if __name__ == '__main__':
     if not os.path.isdir(args.output_dir):
         print('Output directory %s not existed. Create one.' % args.output_dir)
         os.makedirs(args.output_dir)
-    device = torch.device('cpu' if args.no_cuda else 'cuda')
+    device = torch.device('cpu')
+    # device = torch.device('cpu' if args.no_cuda else 'cuda')
 
     # Loaded trained model
     net = tools.load_trained_model(AtlantaNet, args.pth).to(device)
@@ -226,12 +227,12 @@ if __name__ == '__main__':
                 if (json_name is not None):
                     layout_viewer.show_3D_layout(args.img, json_name, def_camera_h)
                 
-                plt.figure(0)
-                plt.title('Ceiling tensor with result')
-                plt.imshow(footprint_up_metric)
+                # plt.figure(0)
+                # plt.title('Ceiling tensor with result')
+                # plt.imshow(footprint_up_metric)
                                 
-                plt.figure(1)
-                plt.title('Floor tensor with result')
-                plt.imshow(footprint_down_metric)
+                # plt.figure(1)
+                # plt.title('Floor tensor with result')
+                # plt.imshow(footprint_down_metric)
                                            
-                plt.show()               
+                # plt.show()               
